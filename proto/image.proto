@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package imagesservice;
+
+option java_multiple_files = true;
+option java_package = "com.hab.grpc.imagesservice";
+option java_outer_classname = "ImagesServiceGRPC";
+
+
+message UploadImageRequest {
+    string user_id = 1;
+    bytes file_chunk = 2;
+    string image_name = 3;
+}
+
+message UploadImageResponse {
+
+}
+
+message DownloadImageRequest {
+    string user_id = 1;
+}
+
+message DownloadImageResponse {
+    int32 response_code = 1;
+    bytes file_chunk = 2;
+}
+
+message RemoveImageRequest {
+    string user_id = 1;
+}
+
+message RemoveImageResponse {
+    int32 response_code = 1;
+}
+
+service Images {
+    rpc UploadImage(stream UploadImageRequest) returns(UploadImageResponse){}
+    rpc DownloadImage(DownloadImageRequest) returns(stream DownloadImageResponse){}
+    rpc RemoveImage(RemoveImageRequest) returns(RemoveImageResponse) {}
+}

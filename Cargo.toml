@@ -1,0 +1,36 @@
+[package]
+name = "images_service"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+#[[bin]]
+#name = "imagesservice"
+#test = false
+#bench = false
+
+[dependencies]
+tonic = { version = "0.7.1", features = ["tls"] }
+prost = "0.10"
+
+
+#==========================================================
+tokio = { version = "1.17.0", features = ["rt-multi-thread", "time", "fs", "macros", "net", "sync"] }
+tokio-stream = "0.1.8"
+#==========================================================
+
+futures-core = "0.3.21"
+futures-executor = "0.3.21"
+
+pickledb = "0.4.1"
+
+[build-dependencies]
+tonic-build = "0.7.0"
+
+[profile.release]
+opt-level = 'z'
+lto = true # enable link time optimization
+
+[profile.dev]
+opt-level = 0
+lto = false # enable link time optimization
