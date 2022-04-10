@@ -1,35 +1,34 @@
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UploadImageRequest {
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub user_id: ::prost::alloc::string::String,
-    #[prost(bytes="vec", tag="2")]
+    #[prost(bytes = "vec", tag = "2")]
     pub file_chunk: ::prost::alloc::vec::Vec<u8>,
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub image_name: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UploadImageResponse {
-}
+pub struct UploadImageResponse {}
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DownloadImageRequest {
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub user_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DownloadImageResponse {
-    #[prost(int32, tag="1")]
+    #[prost(int32, tag = "1")]
     pub response_code: i32,
-    #[prost(bytes="vec", tag="2")]
+    #[prost(bytes = "vec", tag = "2")]
     pub file_chunk: ::prost::alloc::vec::Vec<u8>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveImageRequest {
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub user_id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemoveImageResponse {
-    #[prost(int32, tag="1")]
+    #[prost(int32, tag = "1")]
     pub response_code: i32,
 }
 /// Generated client implementations.
@@ -74,9 +73,8 @@ pub mod images_client {
                     <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
                 >,
             >,
-            <T as tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-            >>::Error: Into<StdError> + Send + Sync,
+            <T as tonic::codegen::Service<http::Request<tonic::body::BoxBody>>>::Error:
+                Into<StdError> + Send + Sync,
         {
             ImagesClient::new(InterceptedService::new(inner, interceptor))
         }
@@ -97,23 +95,16 @@ pub mod images_client {
         }
         pub async fn upload_image(
             &mut self,
-            request: impl tonic::IntoStreamingRequest<
-                Message = super::UploadImageRequest,
-            >,
+            request: impl tonic::IntoStreamingRequest<Message = super::UploadImageRequest>,
         ) -> Result<tonic::Response<super::UploadImageResponse>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
+            self.inner.ready().await.map_err(|e| {
+                tonic::Status::new(
+                    tonic::Code::Unknown,
+                    format!("Service was not ready: {}", e.into()),
+                )
+            })?;
             let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/imagesservice.Images/UploadImage",
-            );
+            let path = http::uri::PathAndQuery::from_static("/imagesservice.Images/UploadImage");
             self.inner
                 .client_streaming(request.into_streaming_request(), path, codec)
                 .await
@@ -122,41 +113,33 @@ pub mod images_client {
             &mut self,
             request: impl tonic::IntoRequest<super::DownloadImageRequest>,
         ) -> Result<
-                tonic::Response<tonic::codec::Streaming<super::DownloadImageResponse>>,
-                tonic::Status,
-            > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
+            tonic::Response<tonic::codec::Streaming<super::DownloadImageResponse>>,
+            tonic::Status,
+        > {
+            self.inner.ready().await.map_err(|e| {
+                tonic::Status::new(
+                    tonic::Code::Unknown,
+                    format!("Service was not ready: {}", e.into()),
+                )
+            })?;
             let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/imagesservice.Images/DownloadImage",
-            );
-            self.inner.server_streaming(request.into_request(), path, codec).await
+            let path = http::uri::PathAndQuery::from_static("/imagesservice.Images/DownloadImage");
+            self.inner
+                .server_streaming(request.into_request(), path, codec)
+                .await
         }
         pub async fn remove_image(
             &mut self,
             request: impl tonic::IntoRequest<super::RemoveImageRequest>,
         ) -> Result<tonic::Response<super::RemoveImageResponse>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
+            self.inner.ready().await.map_err(|e| {
+                tonic::Status::new(
+                    tonic::Code::Unknown,
+                    format!("Service was not ready: {}", e.into()),
+                )
+            })?;
             let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/imagesservice.Images/RemoveImage",
-            );
+            let path = http::uri::PathAndQuery::from_static("/imagesservice.Images/RemoveImage");
             self.inner.unary(request.into_request(), path, codec).await
         }
     }
@@ -173,9 +156,7 @@ pub mod images_server {
             request: tonic::Request<tonic::Streaming<super::UploadImageRequest>>,
         ) -> Result<tonic::Response<super::UploadImageResponse>, tonic::Status>;
         ///Server streaming response type for the DownloadImage method.
-        type DownloadImageStream: futures_core::Stream<
-                Item = Result<super::DownloadImageResponse, tonic::Status>,
-            >
+        type DownloadImageStream: futures_core::Stream<Item = Result<super::DownloadImageResponse, tonic::Status>>
             + Send
             + 'static;
         async fn download_image(
@@ -206,10 +187,7 @@ pub mod images_server {
                 send_compression_encodings: Default::default(),
             }
         }
-        pub fn with_interceptor<F>(
-            inner: T,
-            interceptor: F,
-        ) -> InterceptedService<Self, F>
+        pub fn with_interceptor<F>(inner: T, interceptor: F) -> InterceptedService<Self, F>
         where
             F: tonic::service::Interceptor,
         {
@@ -225,10 +203,7 @@ pub mod images_server {
         type Response = http::Response<tonic::body::BoxBody>;
         type Error = std::convert::Infallible;
         type Future = BoxFuture<Self::Response, Self::Error>;
-        fn poll_ready(
-            &mut self,
-            _cx: &mut Context<'_>,
-        ) -> Poll<Result<(), Self::Error>> {
+        fn poll_ready(&mut self, _cx: &mut Context<'_>) -> Poll<Result<(), Self::Error>> {
             Poll::Ready(Ok(()))
         }
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
@@ -237,25 +212,17 @@ pub mod images_server {
                 "/imagesservice.Images/UploadImage" => {
                     #[allow(non_camel_case_types)]
                     struct UploadImageSvc<T: Images>(pub Arc<T>);
-                    impl<
-                        T: Images,
-                    > tonic::server::ClientStreamingService<super::UploadImageRequest>
-                    for UploadImageSvc<T> {
+                    impl<T: Images> tonic::server::ClientStreamingService<super::UploadImageRequest>
+                        for UploadImageSvc<T>
+                    {
                         type Response = super::UploadImageResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
+                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
                             &mut self,
-                            request: tonic::Request<
-                                tonic::Streaming<super::UploadImageRequest>,
-                            >,
+                            request: tonic::Request<tonic::Streaming<super::UploadImageRequest>>,
                         ) -> Self::Future {
                             let inner = self.0.clone();
-                            let fut = async move {
-                                (*inner).upload_image(request).await
-                            };
+                            let fut = async move { (*inner).upload_image(request).await };
                             Box::pin(fut)
                         }
                     }
@@ -266,11 +233,10 @@ pub mod images_server {
                         let inner = inner.0;
                         let method = UploadImageSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            );
+                        let mut grpc = tonic::server::Grpc::new(codec).apply_compression_config(
+                            accept_compression_encodings,
+                            send_compression_encodings,
+                        );
                         let res = grpc.client_streaming(method, req).await;
                         Ok(res)
                     };
@@ -279,24 +245,20 @@ pub mod images_server {
                 "/imagesservice.Images/DownloadImage" => {
                     #[allow(non_camel_case_types)]
                     struct DownloadImageSvc<T: Images>(pub Arc<T>);
-                    impl<
-                        T: Images,
-                    > tonic::server::ServerStreamingService<super::DownloadImageRequest>
-                    for DownloadImageSvc<T> {
+                    impl<T: Images>
+                        tonic::server::ServerStreamingService<super::DownloadImageRequest>
+                        for DownloadImageSvc<T>
+                    {
                         type Response = super::DownloadImageResponse;
                         type ResponseStream = T::DownloadImageStream;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::ResponseStream>,
-                            tonic::Status,
-                        >;
+                        type Future =
+                            BoxFuture<tonic::Response<Self::ResponseStream>, tonic::Status>;
                         fn call(
                             &mut self,
                             request: tonic::Request<super::DownloadImageRequest>,
                         ) -> Self::Future {
                             let inner = self.0.clone();
-                            let fut = async move {
-                                (*inner).download_image(request).await
-                            };
+                            let fut = async move { (*inner).download_image(request).await };
                             Box::pin(fut)
                         }
                     }
@@ -307,11 +269,10 @@ pub mod images_server {
                         let inner = inner.0;
                         let method = DownloadImageSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            );
+                        let mut grpc = tonic::server::Grpc::new(codec).apply_compression_config(
+                            accept_compression_encodings,
+                            send_compression_encodings,
+                        );
                         let res = grpc.server_streaming(method, req).await;
                         Ok(res)
                     };
@@ -320,23 +281,15 @@ pub mod images_server {
                 "/imagesservice.Images/RemoveImage" => {
                     #[allow(non_camel_case_types)]
                     struct RemoveImageSvc<T: Images>(pub Arc<T>);
-                    impl<
-                        T: Images,
-                    > tonic::server::UnaryService<super::RemoveImageRequest>
-                    for RemoveImageSvc<T> {
+                    impl<T: Images> tonic::server::UnaryService<super::RemoveImageRequest> for RemoveImageSvc<T> {
                         type Response = super::RemoveImageResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
+                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
                             &mut self,
                             request: tonic::Request<super::RemoveImageRequest>,
                         ) -> Self::Future {
                             let inner = self.0.clone();
-                            let fut = async move {
-                                (*inner).remove_image(request).await
-                            };
+                            let fut = async move { (*inner).remove_image(request).await };
                             Box::pin(fut)
                         }
                     }
@@ -347,28 +300,23 @@ pub mod images_server {
                         let inner = inner.0;
                         let method = RemoveImageSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            );
+                        let mut grpc = tonic::server::Grpc::new(codec).apply_compression_config(
+                            accept_compression_encodings,
+                            send_compression_encodings,
+                        );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
                     };
                     Box::pin(fut)
                 }
-                _ => {
-                    Box::pin(async move {
-                        Ok(
-                            http::Response::builder()
-                                .status(200)
-                                .header("grpc-status", "12")
-                                .header("content-type", "application/grpc")
-                                .body(empty_body())
-                                .unwrap(),
-                        )
-                    })
-                }
+                _ => Box::pin(async move {
+                    Ok(http::Response::builder()
+                        .status(200)
+                        .header("grpc-status", "12")
+                        .header("content-type", "application/grpc")
+                        .body(empty_body())
+                        .unwrap())
+                }),
             }
         }
     }
